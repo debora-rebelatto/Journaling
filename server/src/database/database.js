@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
 
 mongoose.connect(
-  'mongodb+srv://deb:26NW4IF224EpjifU@cluster0.ahrgm.mongodb.net/journaling?retryWrites=true&w=majority',
+  process.env.MONGO_ATLAS,
   { useNewUrlParser: true,  useUnifiedTopology: true }
 )
+
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 module.exports = mongoose;

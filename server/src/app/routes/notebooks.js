@@ -1,9 +1,13 @@
 const express = require('express');
 const Notebook = require('../models/Notebooks');
 
+const authMiddleware = require("../middleware/auth");
+
 const router = express.Router();
 
-router.post('/', async(req, res) => {
+router.use(authMiddleware);
+
+router.post('/', authMiddleware, async(req, res) => {
   try {
     let notebook = await Notebook.create(req.body);
     return res.status(200).send({ notebook })
@@ -12,7 +16,7 @@ router.post('/', async(req, res) => {
   }
 });
 
-router.delete('/:id', async(req, res) => {
+router.delete('/:id', authMiddleware, async(req, res) => {
   try {
     await Notebook.deleteOne({ _id: req.params.id });
     return res.status(200).send({'ok': "ok"})

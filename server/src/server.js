@@ -1,13 +1,18 @@
 const express = require('express');
 const cors = require('cors')
+const morgan = require('morgan');
 
 const app = express();
-  
-app.use(cors())
+
+require('dotenv').config();
+
+app.use(morgan('dev'));
+app.use(cors());
 app.use(express.json());
 
-require('./routes/notes')(app);
-require('./routes/notebooks')(app);
+require('./app/routes/notes')(app);
+require('./app/routes/notebooks')(app);
+require('./app/routes/user')(app);
 
 let port = 3000
 

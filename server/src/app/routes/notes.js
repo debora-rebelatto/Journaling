@@ -1,7 +1,10 @@
 const express = require('express');
 const Notebook = require('../models/Notebooks');
+const authMiddleware = require("../middleware/auth");
 
 const router = express.Router();
+
+router.use(authMiddleware);
 
 router.post('/', async(req, res) => {
   let { id } = req.body;
