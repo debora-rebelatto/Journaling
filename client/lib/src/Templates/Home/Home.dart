@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:journal_app/src/Templates/Home/IDK.dart';
 import 'package:journal_app/src/Templates/HostConfig/HostConfig.dart';
 import 'package:journal_app/src/Templates/WidgetNotebooks/WidgetNotebooks.dart';
-import 'package:journal_app/src/Templates/WidgetNotes/FutureNotes.dart';
 import '../Create.dart';
 import 'Search.dart';
 
@@ -17,7 +16,6 @@ class HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: Color(0xffeeeef2),
       body: Container(
-        // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,26 +24,10 @@ class HomeState extends State<Home> {
               StuffIdk(),
               SizedBox(height: 20),
               WidgetNotebooks(),
-              FutureNotes()
             ]
           )
         ),
       )
-
-
-
-
-
-
-
-          /* Stack(children:[
-        NestedScrollView(
-          headerSliverBuilder: (context, index) {
-            return <Widget> [ sliverAppBar(context) ];
-          },
-          body:
-        )
-      ]), */
     );
   }
 

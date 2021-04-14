@@ -13,14 +13,6 @@ router.post('/:id', authMiddleware, async (req, res) => {
   try {
     var notebook = await Notebooks.findById(id).populate(['organizer', 'participants']);
 
-    /* await Promise.all(
-      notebook.notes.map(async notes => {
-        if(notes.participant == req.userId) {
-          return res.status(400).send({"error": "Usuário já inscrito neste evento"})
-        }
-      })
-    ); */
-
     const notebookNote = new Notes({ ...req.body, notebook: id, owner: req.userId });
     await notebookNote.save();
     notebook.notes.push(notebookNote);
@@ -34,36 +26,19 @@ router.post('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-/* router.delete('/:id', async(req, res) => {
-  let id = req.params.id;
-  try {
-    var notebook = await Notebooks.findById(id).populate(['organizer', 'participants']);
-
-    await Promise.all(
-      notebook.notes.map(async notes => {
-        // if(notes.participant == req.userId) {
-        //   return res.status(400).send({"error": "Usuário já inscrito neste evento"})
-        // }
-      })
-    );
-
-    const notebookNote = new Notes({ ...req.body, notebook: id, owner: req.userId });
-    await notebookNote.save();
-    notebook.notes.push(notebookNote);
-
-    await notebook.save();
-
-    return res.status(200).send(notebook);
-  } catch(err) {
-    console.log(err)
-    return res.status(400).send({ 'error': err });
-  }
-
-});
- */
 router.get('/', async(req, res) => {
   try {
-    let notes = await Notes.find();
+    let notes = await Notes.find({ owner: req.userId });
+    return res.status(200).send(notes);
+  } catch(err) {
+    return res.status(400).send({'err': err});
+  }
+})
+
+// Get by Notebook ID
+router.get('/notebook/:notebookId', async(req, res) => {
+  try {
+    let notes = await Notes.find({ notebook: req.params.notebookId/* , owner: req.userId */ });
     return res.status(200).send(notes);
   } catch(err) {
     return res.status(400).send({'err': err});
@@ -71,22 +46,3 @@ router.get('/', async(req, res) => {
 })
 
 module.exports = app => app.use('/notes', router);
-
-  /*return res.status(200).send([
-    { "name": "name1", "color": "EE1D6A", "date": "" },
-    { "name": "name2", "color": "2A27E4", "date": "" },
-    { "name": "name3", "color": "F8A8B4", "date": "" },
-    { "name": "name4", "color": "EE1D6A", "date": "" },
-    { "name": "name1", "color": "FFC300", "date": "" },
-    { "name": "name2", "color": "FF5733", "date": "" },
-    { "name": "name3", "color": "C70039", "date": "" },
-    { "name": "name4", "color": "581845", "date": "" },
-    { "name": "name1", "color": "FFC300", "date": "" },
-    { "name": "name2", "color": "FF5733", "date": "" },
-    { "name": "name3", "color": "C70039", "date": "" },
-    { "name": "name4", "color": "581845", "date": "" },
-    { "name": "name1", "color": "FFC300", "date": "" },
-    { "name": "name2", "color": "FF5733", "date": "" },
-    { "name": "name3", "color": "C70039", "date": "" },
-    { "name": "name4", "color": "581845", "date": "" },
-  ]);*/

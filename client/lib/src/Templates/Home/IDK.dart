@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:journal_app/src/Templates/NewNotebook/NewNotebok.dart';
 
 class StuffIdk extends StatelessWidget{
   Widget build(BuildContext context) {
@@ -19,32 +20,24 @@ class StuffIdk extends StatelessWidget{
           child: IconButton(
             icon: Icon(Icons.more_horiz, color: Color(0xffc8c9de), size: 40,),
             onPressed: () {
-                  showModalBottomSheet(
-      context: context,
-      builder: (BuildContext bc){
-          return Container(
-            child: Wrap(children: <Widget>[
-          ListTile(
-            leading: new Icon(Icons.music_note),
-            title: new Text('Músicas'),
-            onTap: () => {}          
-          ),
-          ListTile(
-            leading: new Icon(Icons.videocam),
-            title: new Text('Videos'),
-            onTap: () => { },          
-          ),
-	ListTile(
-	leading: new Icon(Icons.satellite),
-	title: new Text('Tempo'),
-	onTap: () => {}, 
-	),
-         ],
-        ),
-       );
-      }
-    );
-
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Container(
+                    child: Wrap(
+                      children: <Widget>[
+                        ListTile(
+                          leading: new Icon(Icons.add),
+                          title: new Text('New Notebook'),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => NewNotebok()));
+                          }
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              );
             },
           )
 

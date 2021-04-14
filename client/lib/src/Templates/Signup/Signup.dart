@@ -102,8 +102,6 @@ class _SignupState extends State<Signup> {
 
       var response = await AuthServices.signup(_name.text, _email.text, _password.text);
 
-      print(response.body);
-
       setState(() {
         error = jsonDecode(response.body)['error'] ?? '';
         waiting = !waiting;

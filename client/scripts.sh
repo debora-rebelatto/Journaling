@@ -9,8 +9,6 @@ options=(
   "Generate MOBX"
   "One time generation Json Serialization"
   "Generate Continuously Json Serialization"
-  # "Build IPA"
-  # "Build Linux"
   "Quit"
 )
 
@@ -39,15 +37,6 @@ do
     "Continuously Json Serialization")
       echo "${GREEN}More info: https://flutter.dev/docs/development/data-and-backend/json#generating-code-continuously ${reset}"
       flutter pub run build_runner watch --delete-conflicting-outputs
-      ;;
-    "Build IPA")
-      echo "${GREEN}More info: https://flutter.dev/docs/deployment/ios ${reset}"
-      flutter build ios
-      break
-      ;;
-    "Build Linux")
-      echo "${GREEN}More info: https://flutter.dev/docs/deployment/linux ${reset}"
-      break
       ;;
     "Quit")
       break

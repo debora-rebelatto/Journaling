@@ -12,6 +12,9 @@ const NotesSchema = mongoose.Schema({
     ref: 'Notebooks',
     required: true
   },
+  content: {
+    type: String
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

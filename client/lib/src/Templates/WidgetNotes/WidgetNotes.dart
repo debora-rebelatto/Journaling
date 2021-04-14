@@ -38,7 +38,7 @@ class _WidgetState extends State<WidgetNotes> {
                       ),
                       Container(
                         padding: EdgeInsets.only(left: 10),
-                        child: Text(note['name'], style: TextStyle(fontSize: 18))
+                        child: Text(note['title'], style: TextStyle(fontSize: 18))
                       )
                     ])
                   ]),

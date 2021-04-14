@@ -6,6 +6,6 @@ class NotebooksController {
   static getNotebook() async => await Requests.httpGET('/notebooks');
 
   static postNotebook(name, color) async =>
-    await Requests.httpPOST('/notebooks', body: jsonEncode({ "name": name, "color": color }));
+    await Requests.httpPOST('/notebooks', body: jsonEncode({ "title": name, "color": color }));
 
 }
