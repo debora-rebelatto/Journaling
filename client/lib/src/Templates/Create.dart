@@ -3,11 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:journal_app/src/Controllers/NotebooksController.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import 'Components/Validators.dart';
+
 class Create extends StatefulWidget {
   CreateState createState() => CreateState();
 }
 
 class CreateState extends State<Create> {
+  TextEditingController _title = TextEditingController(text: '');
   Color currentColor = Colors.limeAccent;
   changeColor(Color color) => setState(() => currentColor = color);
 
@@ -40,6 +43,18 @@ class CreateState extends State<Create> {
           },
           body: Container(
             child: Column(children: [
+
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                child: TextFormField(
+                  controller: _title,
+                  decoration: InputDecoration( hintText: 'Título'),
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: () => FocusScope.of(context).nextFocus(),
+                  validator: (value) => FieldValidator.validateIfEmpty(value)
+                ),
+              ),
+
               ColorPicker(
                 pickerColor: currentColor,
                 onColorChanged: changeColor,
@@ -56,7 +71,7 @@ class CreateState extends State<Create> {
               ),
               FlatButton(
                 child: Text("ok"),
-                onPressed: () async { await NotebooksController.postNotebook(); },
+                onPressed: () async { await NotebooksController.postNotebook('name', "EE1D6A"); },
               )
             ],)
           ),

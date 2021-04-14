@@ -1,7 +1,13 @@
 const mongoose = require("../../database/database");
 
 const NotesSchema = mongoose.Schema({
-  notebook:{
+  title: {
+    type: String, required: true
+  },
+  color: {
+    type: String
+  },
+  notebook: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Notebooks',
     required: true
@@ -11,14 +17,9 @@ const NotesSchema = mongoose.Schema({
     ref: 'User',
     required: true
   },
-  title: {
-    type: String, required: true
-  },
-  color: {
-    type: String
-  },
-  date: {
-    type: String
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 })
 

@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:journal_app/src/Controllers/NotesController.dart';
-import 'package:journal_app/src/Models/NotesModel/Notes.dart';
 
-class WidgetNotes extends StatefulWidget{ _WidgetState createState() => _WidgetState(); }
+class WidgetNotes extends StatefulWidget {
+  final notes;
+
+  WidgetNotes(this.notes);
+
+  _WidgetState createState() => _WidgetState();
+}
 
 class _WidgetState extends State<WidgetNotes> {
-  Future<dynamic> _future;
-  Future<List<dynamic>> _getData() async => await NotesControllers.getNote();
-
-  @override
-  void initState() {
-    super.initState();
-    _future = _getData();
-  }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _future,
-      builder: (context, snapshot) {
-        return snapshot.hasData
-        ? ListView.builder (
+    return ListView.builder (
           shrinkWrap: true,
           physics: BouncingScrollPhysics(),
-          itemCount: snapshot.data.length,
+          itemCount: widget.notes.length,
           itemBuilder: (context, index) {
-            Notes note = snapshot.data[index];
+            var note = widget.notes[index];
             return Padding(
               padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
               child: Row(
@@ -36,7 +28,7 @@ class _WidgetState extends State<WidgetNotes> {
                       height: 50, width: 15,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Color(int.parse('0xff' + note.color)),
+                        color: Color(int.parse('0xff' + note['color'])),
                       ),
                     ),
                     Column(children:[
@@ -46,7 +38,7 @@ class _WidgetState extends State<WidgetNotes> {
                       ),
                       Container(
                         padding: EdgeInsets.only(left: 10),
-                        child: Text(note.name, style: TextStyle(fontSize: 18))
+                        child: Text(note['name'], style: TextStyle(fontSize: 18))
                       )
                     ])
                   ]),
@@ -54,9 +46,6 @@ class _WidgetState extends State<WidgetNotes> {
               ])
             );
           }
-        )
-        : Container(child: Text('error'));
-      }
-    );
+        );
   }
 }

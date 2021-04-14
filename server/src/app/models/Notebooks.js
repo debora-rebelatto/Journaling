@@ -9,10 +9,18 @@ const NotebooksSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   notes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Notes',
   }],
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
 })
 
 const Notebooks = mongoose.model('Notebooks', NotebooksSchema);

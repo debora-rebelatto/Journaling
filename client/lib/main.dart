@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import './src/Templates/Home/Home.dart';
+import 'package:journal_app/src/Templates/InitialScreen/InitialScreen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Journaling());
 }
 
-class MyApp extends StatelessWidget {
+class Journaling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         backgroundColor: Color(0xffeeeef2),
-  scaffoldBackgroundColor: Color(0xffeeeef2)
+        scaffoldBackgroundColor: Color(0xffeeeef2)
       ),
-      home: Home(),
+      home: InitialScreen(),
     );
   }
 }

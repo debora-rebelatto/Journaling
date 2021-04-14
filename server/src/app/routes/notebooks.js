@@ -9,23 +9,46 @@ router.use(authMiddleware);
 
 router.post('/', authMiddleware, async(req, res) => {
   try {
-    let notebook = await Notebook.create(req.body);
-    return res.status(200).send({ notebook })
+    console.log(req.params);
+    let notebook = await Notebook.create({ ...req.body, owner: req.userId });
+    console.log(notebook)
+    return res.status(200).send(notebook)
   } catch (error) {
+    console.log(error);
     return res.status(400).send({ 'error': "Something wrong happend" })
   }
 });
 
 router.delete('/:id', authMiddleware, async(req, res) => {
+  let id = req.params.id;
+
   try {
-    await Notebook.deleteOne({ _id: req.params.id });
-    return res.status(200).send({'ok': "ok"})
+    if(!await Notebook.findById(id))
+      return res.status(400).send({ 'error': 'Notebook does not exist' })
+
+    await Notebook.deleteOne({ _id: id });
+    return res.status(200);
   } catch (error) {
     console.log(error);
-    return res.status(400).send({'error': "Something wrong happend"})
+    return res.status(400).send({'error': error})
   }
 });
 
+router.get('/:id', async(req, res) => {
+  var id = req.params.id;
+  try {
+    if(!await Notebook.findById(id))
+      res.status(400).send({ 'error': 'Evento não existe' });
+
+    var notebook = await Notebook.findById(id).populate('notes');
+    return res.status(200).send(notebook);
+  } catch(error) {
+    return res.status(400).send({'error': "Something wrong happend"})
+  }
+})
+
+
+/*
 router.put('/:id', async(req, res) => {
   const doc = { name: req.body.name };
   try {
@@ -35,28 +58,7 @@ router.put('/:id', async(req, res) => {
     return res.status(400).send({'error': "Something wrong happend"})
   }
 })
-
-router.post('/note/:id', async(req, res) => {
-
-  const note = {
-    "name": "name",
-  }
-
-  try {
-    Notebook.findOneAndUpdate(
-      { _id: req.params.id },
-      { $push: { "notes.name": "note" } }
-    );
-
-
-    console.log(await Notebook.find({_id: req.params.id}))
-
-    return res.status(200).send({ "ok": "ok" })
-  } catch (error) {
-    console.log(error)
-    return res.status(400).send({'error': "Something wrong happend"})
-  }
-});
+*/
 
 router.get('/', async(req, res) => {
   try {

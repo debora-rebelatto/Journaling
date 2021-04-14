@@ -1,40 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:journal_app/src/Templates/Home/IDK.dart';
+import 'package:journal_app/src/Templates/HostConfig/HostConfig.dart';
 import 'package:journal_app/src/Templates/WidgetNotebooks/WidgetNotebooks.dart';
-import 'package:journal_app/src/Templates/WidgetNotes/WidgetNotes.dart';
-
+import 'package:journal_app/src/Templates/WidgetNotes/FutureNotes.dart';
 import '../Create.dart';
 import 'Search.dart';
-import 'Settings.dart';
 
-class Home extends StatefulWidget{ HomeState createState() => HomeState(); }
+class Home extends StatefulWidget{
+  HomeState createState() => HomeState();
+}
 
-class HomeState extends State<Home>{
-
+class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffeeeef2),
-      body: Stack(children:[
+      body: Container(
+        // padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Search(),
+              StuffIdk(),
+              SizedBox(height: 20),
+              WidgetNotebooks(),
+              FutureNotes()
+            ]
+          )
+        ),
+      )
+
+
+
+
+
+
+
+          /* Stack(children:[
         NestedScrollView(
           headerSliverBuilder: (context, index) {
             return <Widget> [ sliverAppBar(context) ];
           },
-          body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Search(),
-                StuffIdk(),
-                Stack(children: [ WidgetNotebooks() ]),
-                WidgetNotes()
-              ],
-            )
-          )
+          body:
         )
-      ]),
+      ]), */
     );
   }
 
